@@ -629,37 +629,7 @@ new Sketch({
     domElement: document.getElementById("container")
 });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","three":"ktPTu","three/examples/jsm/controls/OrbitControls.js":"7mqRv","./shaders/fragment.glsl":"04wE2","./shaders/vertex.glsl":"iofDC","./texture.jpg":"gKiaT","dat.gui":"k3xQk"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls.js":"7mqRv","./shaders/fragment.glsl":"04wE2","./shaders/vertex.glsl":"iofDC","./texture.jpg":"gKiaT","dat.gui":"k3xQk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2022 Three.js Authors
@@ -29905,7 +29875,37 @@ if (typeof window !== "undefined") {
     else window.__THREE__ = REVISION;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7mqRv":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"7mqRv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "OrbitControls", ()=>OrbitControls);
@@ -30597,7 +30597,7 @@ class MapControls extends OrbitControls {
 module.exports = "#define GLSLIFY 1\nuniform float time;\nuniform float uProgess;\nuniform sampler2D uTexture;\nvarying vec2 vUv;\n\nvoid main() {\n    vec4 image = texture(uTexture, vUv);\n    gl_FragColor = vec4(vUv,0.,1.);\n    gl_FragColor = image;\n}";
 
 },{}],"iofDC":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nuniform float time;\nuniform float uProgess;\nuniform vec2 uResolution;\nuniform vec2 uQuadSize;\n\nvarying vec2 vUv;\nvoid main() {\n    vUv = uv;\n    vec4 defaultState = modelMatrix*vec4(position, 1.0);\n    vec4 fullScreenState = vec4(position, 1.0);\n    fullScreenState.x *= uResolution.x/uQuadSize.x;\n    fullScreenState.y *= uResolution.y/uQuadSize.y;\n\n    vec4 finalState = mix(defaultState, fullScreenState, uProgess);\n\n    gl_Position = projectionMatrix * viewMatrix * fullScreenState;\n}";
+module.exports = "#define GLSLIFY 1\nuniform float time;\nuniform float uProgess;\nuniform vec2 uResolution;\nuniform vec2 uQuadSize;\n\nvarying vec2 vUv;\nvoid main() {\n    vUv = uv;\n    vec4 defaultState = modelMatrix*vec4(position, 1.0);\n    vec4 fullScreenState = vec4(position, 1.0);\n    fullScreenState.x *= uResolution.x/uQuadSize.x;\n    fullScreenState.y *= uResolution.y/uQuadSize.y;\n\n    vec4 finalState = mix(defaultState, fullScreenState, uProgess);\n\n    gl_Position = projectionMatrix * viewMatrix * finalState;\n}";
 
 },{}],"gKiaT":[function(require,module,exports) {
 module.exports = require("./helpers/bundle-url").getBundleURL("jTL0Z") + "texture.9e100592.jpg" + "?" + Date.now();
