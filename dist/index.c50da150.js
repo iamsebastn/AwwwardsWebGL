@@ -605,7 +605,7 @@ new Sketch({
     domElement: document.getElementById("container")
 });
 
-},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","three/examples/jsm/controls/OrbitControls.js":"7mqRv","./shaders/fragment.glsl":"04wE2","./shaders/vertex.glsl":"iofDC"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls.js":"7mqRv","./shaders/fragment.glsl":"04wE2","./shaders/vertex.glsl":"iofDC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2022 Three.js Authors
@@ -30570,10 +30570,10 @@ class MapControls extends OrbitControls {
 }
 
 },{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"04wE2":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_FragColor = vec4(1.,1.,0.,1.)\n}";
+module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_FragColor = vec4(0.,0.,1., 1.);\n}";
 
 },{}],"iofDC":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_Position = projectionmatrix * modelViewMatrix * vec4( \n    position, 1.0)\n}";
+module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );\n}";
 
 },{}]},["5bQQ8","l4TDA"], "l4TDA", "parcelRequire94c2")
 
