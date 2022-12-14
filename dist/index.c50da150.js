@@ -600,9 +600,6 @@ class Sketch {
                 },
                 uResolution: {
                     value: new _three.Vector2(this.width, this.height)
-                },
-                uQuadSize: {
-                    value: new _three.Vector2(300, 300)
                 }
             },
             vertexShader: (0, _vertexGlslDefault.default),
