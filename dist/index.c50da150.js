@@ -557,7 +557,6 @@ class Sketch {
             alpha: true
         });
         this.renderer.setPixelRatio(window.devicePixelRatio);
-        // this.renderer.setPixelRatio(2);
         this.container.appendChild(this.renderer.domElement);
         this.controls = new (0, _orbitControlsJs.OrbitControls)(this.camera, this.renderer.domElement);
         this.time = 0;

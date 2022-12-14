@@ -23,7 +23,6 @@ export default class Sketch{
             alpha: true
          } );
         this.renderer.setPixelRatio(window.devicePixelRatio);
-        // this.renderer.setPixelRatio(2);
         this.container.appendChild(this.renderer.domElement);
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
