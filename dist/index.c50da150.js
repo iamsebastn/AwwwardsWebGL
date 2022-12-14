@@ -573,8 +573,9 @@ class Sketch {
         window.addEventListener("resize", this.resize.bind(this));
     }
     addObjects() {
-        this.geometry = new _three.PlaneBufferGeometry(0.5, 0.5);
-        // this.material = new THREE.MeshNormalMaterial();
+        this.geometry = new _three.PlaneBufferGeometry(0.5, 0.5, 100, 100);
+        // this.geometry = new THREE.SphereBufferGeometry( 0.5, 160,160);
+        // console.log(this.geometry)
         this.material = new _three.ShaderMaterial({
             uniforms: {
                 time: {
@@ -30569,7 +30570,7 @@ class MapControls extends OrbitControls {
 }
 
 },{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"04wE2":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_FragColor = vec4(1.,0.,0.,1.)\n}";
+module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_FragColor = vec4(1.,1.,0.,1.)\n}";
 
 },{}],"iofDC":[function(require,module,exports) {
 module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_Position = projectionmatrix * modelViewMatrix * vec4( \n    position, 1.0)\n}";

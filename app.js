@@ -47,17 +47,17 @@ export default class Sketch{
 	}
 
 	addObjects() {
-		this.geometry = new THREE.PlaneBufferGeometry( 0.5, 0.5 );
-		// this.material = new THREE.MeshNormalMaterial();
-
-		this.material = new THREE.ShaderMaterial({
-			uniforms: {
-				time: { value: 1.0 },
-				resolution: { value: new THREE.Vector2() }	
-			},
-			vertexShader: vertex,
-			fragmentShader: fragment,
-		})
+		this.geometry = new THREE.PlaneBufferGeometry( 0.5, 0.5,100,100);
+        // this.geometry = new THREE.SphereBufferGeometry( 0.5, 160,160);
+        // console.log(this.geometry)
+        this.material = new THREE.ShaderMaterial({
+            uniforms: {
+                time: { value: 1.0 },
+                resolution: { value: new THREE.Vector2() }
+            },
+            vertexShader: vertex,
+            fragmentShader: fragment,
+        })
 
 		this.mesh = new THREE.Mesh( this.geometry, this.material );
 		this.scene.add( this.mesh );
