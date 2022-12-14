@@ -536,6 +536,10 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _three = require("three");
 var _orbitControlsJs = require("three/examples/jsm/controls/OrbitControls.js");
+var _fragmentGlsl = require("./shaders/fragment.glsl");
+var _fragmentGlslDefault = parcelHelpers.interopDefault(_fragmentGlsl);
+var _vertexGlsl = require("./shaders/vertex.glsl");
+var _vertexGlslDefault = parcelHelpers.interopDefault(_vertexGlsl);
 class Sketch {
     constructor(options){
         this.container = options.domElement;
@@ -545,11 +549,13 @@ class Sketch {
         this.camera.position.z = 1;
         this.scene = new _three.Scene();
         this.renderer = new _three.WebGLRenderer({
-            antialias: true
+            antialias: true,
+            alpha: true
         });
         this.renderer.setPixelRatio(window.devicePixelRatio);
+        // this.renderer.setPixelRatio(2);
         this.container.appendChild(this.renderer.domElement);
-        this.controls = new (0, _orbitControlsJs.OrbitControls)(this.camera, this.render.domElement);
+        this.controls = new (0, _orbitControlsJs.OrbitControls)(this.camera, this.renderer.domElement);
         this.time = 0;
         this.resize();
         this.addObjects();
@@ -567,8 +573,20 @@ class Sketch {
         window.addEventListener("resize", this.resize.bind(this));
     }
     addObjects() {
-        this.geometry = new _three.BoxGeometry(0.2, 0.2, 0.2);
-        this.material = new _three.MeshNormalMaterial();
+        this.geometry = new _three.PlaneBufferGeometry(0.5, 0.5);
+        // this.material = new THREE.MeshNormalMaterial();
+        this.material = new _three.ShaderMaterial({
+            uniforms: {
+                time: {
+                    value: 1.0
+                },
+                resolution: {
+                    value: new _three.Vector2()
+                }
+            },
+            vertexShader: (0, _vertexGlslDefault.default),
+            fragmentShader: (0, _fragmentGlslDefault.default)
+        });
         this.mesh = new _three.Mesh(this.geometry, this.material);
         this.scene.add(this.mesh);
     }
@@ -577,7 +595,7 @@ class Sketch {
         this.mesh.rotation.x = this.time / 2000;
         this.mesh.rotation.y = this.time / 1000;
         this.renderer.render(this.scene, this.camera);
-        console.log(this.time);
+        // console.log(this.time);
         requestAnimationFrame(this.render.bind(this));
     }
 }
@@ -586,7 +604,7 @@ new Sketch({
     domElement: document.getElementById("container")
 });
 
-},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","three/examples/jsm/controls/OrbitControls.js":"7mqRv"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","three/examples/jsm/controls/OrbitControls.js":"7mqRv","./shaders/fragment.glsl":"04wE2","./shaders/vertex.glsl":"iofDC"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2022 Three.js Authors
@@ -30550,6 +30568,12 @@ class MapControls extends OrbitControls {
     }
 }
 
-},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["5bQQ8","l4TDA"], "l4TDA", "parcelRequire94c2")
+},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"04wE2":[function(require,module,exports) {
+module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_FragColor = vec4(1.,0.,0.,1.)\n}";
+
+},{}],"iofDC":[function(require,module,exports) {
+module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_Position = projectionmatrix * modelViewMatrix * vec4( \n    position, 1.0)\n}";
+
+},{}]},["5bQQ8","l4TDA"], "l4TDA", "parcelRequire94c2")
 
 //# sourceMappingURL=index.c50da150.js.map
