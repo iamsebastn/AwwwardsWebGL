@@ -575,8 +575,9 @@ class Sketch {
     addObjects() {
         this.geometry = new _three.PlaneBufferGeometry(0.5, 0.5, 100, 100);
         // this.geometry = new THREE.SphereBufferGeometry( 0.5, 160,160);
-        // console.log(this.geometry)
+        console.log(this.geometry);
         this.material = new _three.ShaderMaterial({
+            wireframe: true,
             uniforms: {
                 time: {
                     value: 1.0
@@ -592,7 +593,8 @@ class Sketch {
         this.scene.add(this.mesh);
     }
     render() {
-        this.time += 0.05;
+        this.time += 0.03;
+        this.material.uniforms.time.value = this.time;
         this.mesh.rotation.x = this.time / 2000;
         this.mesh.rotation.y = this.time / 1000;
         this.renderer.render(this.scene, this.camera);
@@ -30573,7 +30575,7 @@ class MapControls extends OrbitControls {
 module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_FragColor = vec4(0.,0.,1., 1.);\n}";
 
 },{}],"iofDC":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );\n}";
+module.exports = "#define GLSLIFY 1\nuniform float time;\nvoid main() {\n    vec3 newPosition = position;\n    newPosition.z = 0.1*sin(newPosition.x*30. + time);\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );\n}";
 
 },{}]},["5bQQ8","l4TDA"], "l4TDA", "parcelRequire94c2")
 
