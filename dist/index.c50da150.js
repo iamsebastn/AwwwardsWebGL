@@ -540,6 +540,8 @@ var _fragmentGlsl = require("./shaders/fragment.glsl");
 var _fragmentGlslDefault = parcelHelpers.interopDefault(_fragmentGlsl);
 var _vertexGlsl = require("./shaders/vertex.glsl");
 var _vertexGlslDefault = parcelHelpers.interopDefault(_vertexGlsl);
+var _waterJpg = require("./water.jpg");
+var _waterJpgDefault = parcelHelpers.interopDefault(_waterJpg);
 class Sketch {
     constructor(options){
         this.container = options.domElement;
@@ -577,10 +579,13 @@ class Sketch {
         // this.geometry = new THREE.SphereBufferGeometry( 0.5, 160,160);
         console.log(this.geometry);
         this.material = new _three.ShaderMaterial({
-            wireframe: true,
+            // wireframe: true,
             uniforms: {
                 time: {
                     value: 1.0
+                },
+                uTexture: {
+                    value: new _three.TextureLoader().load((0, _waterJpgDefault.default))
                 },
                 resolution: {
                     value: new _three.Vector2()
@@ -607,7 +612,7 @@ new Sketch({
     domElement: document.getElementById("container")
 });
 
-},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls.js":"7mqRv","./shaders/fragment.glsl":"04wE2","./shaders/vertex.glsl":"iofDC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls.js":"7mqRv","./shaders/fragment.glsl":"04wE2","./shaders/vertex.glsl":"iofDC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./water.jpg":"2nu68"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2022 Three.js Authors
@@ -30572,10 +30577,47 @@ class MapControls extends OrbitControls {
 }
 
 },{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"04wE2":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_FragColor = vec4(0.,0.,1., 1.);\n}";
+module.exports = "#define GLSLIFY 1\nuniform float time;\nuniform sampler2D uTexture;\n\nvarying float pulse;\nvarying vec2 vUv;\n\nvoid main() {\n\n    vec4 myimage = texture(\n        uTexture, \n        vUv + 0.01*sin(vUv*20. + time)\n    );\n\n    float sinePulse = (1.+ sin(vUv.x*50. + time))*0.5;\n    gl_FragColor = vec4(vUv,0., 1.);\n    gl_FragColor = vec4(sinePulse,0.,0., 1.);\n     gl_FragColor = vec4(myimage);\n}";
 
 },{}],"iofDC":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nuniform float time;\nvoid main() {\n    vec3 newPosition = position;\n    newPosition.z = 0.1*sin(newPosition.x*30. + time);\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );\n}";
+module.exports = "#define GLSLIFY 1\nuniform float time;\nvarying float pulse;\n\nvarying vec2 vUv;\nvoid main() {\n    vUv = uv;\n    vec3 newPosition = position;\n    newPosition.z = 0.0*sin(length(position)*30.);\n    pulse = 20.*newPosition.z;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );\n}";
+
+},{}],"2nu68":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("jTL0Z") + "water.34dec3bf.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
 
 },{}]},["5bQQ8","l4TDA"], "l4TDA", "parcelRequire94c2")
 
