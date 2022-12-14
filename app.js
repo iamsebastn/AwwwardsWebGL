@@ -29,12 +29,12 @@ export default class Sketch{
         
         
         this.time = 0;
-        this.setupSettings()
-        this.resize()
-        this.addObjects()
+        this.setupSettings();
+        this.resize();
+        this.addObjects();
         this.render();
         
-        this.setupResize()
+        this.setupResize();
 	}
 
     setupSettings(){
@@ -59,7 +59,7 @@ export default class Sketch{
 	}
 
 	addObjects() {
-		this.geometry = new THREE.PlaneBufferGeometry( 350, 350, 100, 100);
+		this.geometry = new THREE.PlaneBufferGeometry( 200, 200, 100, 100);
         console.log(this.geometry)
         this.material = new THREE.ShaderMaterial({
             // wireframe: true,

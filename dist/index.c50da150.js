@@ -584,7 +584,7 @@ class Sketch {
         window.addEventListener("resize", this.resize.bind(this));
     }
     addObjects() {
-        this.geometry = new _three.PlaneBufferGeometry(350, 350, 100, 100);
+        this.geometry = new _three.PlaneBufferGeometry(200, 200, 100, 100);
         console.log(this.geometry);
         this.material = new _three.ShaderMaterial({
             // wireframe: true,
@@ -30594,10 +30594,10 @@ class MapControls extends OrbitControls {
 }
 
 },{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"04wE2":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nuniform float time;\nuniform float uProgess;\nuniform sampler2D uTexture;\nvarying vec2 vUv;\n\nvoid main() {\n    vec4 image = texture(uTexture, vUv);\n    gl_FragColor = vec4(vUv,0.,1.);\n    gl_FragColor = image;\n}";
+module.exports = "#define GLSLIFY 1\nuniform float time;\nuniform float uProgess;\nuniform sampler2D uTexture;\n\nvarying vec2 vUv;\n\nvoid main() {\n    vec4 image = texture(uTexture, vUv);\n    gl_FragColor = vec4(vUv,0.,1.);\n    gl_FragColor = image;\n}";
 
 },{}],"iofDC":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\nuniform float time;\nuniform float uProgess;\nuniform vec2 uResolution;\nuniform vec2 uQuadSize;\n\nvarying vec2 vUv;\nvoid main() {\n    vUv = uv;\n    vec4 defaultState = modelMatrix*vec4(position, 1.0);\n    vec4 fullScreenState = vec4(position, 1.0);\n    fullScreenState.x *= uResolution.x/uQuadSize.x;\n    fullScreenState.y *= uResolution.y/uQuadSize.y;\n\n    vec4 finalState = mix(defaultState, fullScreenState, uProgess);\n\n    gl_Position = projectionMatrix * viewMatrix * finalState;\n}";
+module.exports = "#define GLSLIFY 1\nuniform float time;\nuniform float uProgess;\n\nvarying vec2 vUv;\n\nvoid main() {\n    vUv = uv;\n    vec4 defaultState = modelMatrix*vec4(position, 1.0);\n    vec4 fullscreenState = vec4(position, 1.0);\n\n    vec4 finalState = mix(defaultState, fullscreenState, uProgess);\n    gl_Position = projectionMatrix * viewMatrix * finalState;\n}";
 
 },{}],"gKiaT":[function(require,module,exports) {
 module.exports = require("./helpers/bundle-url").getBundleURL("jTL0Z") + "texture.9e100592.jpg" + "?" + Date.now();
